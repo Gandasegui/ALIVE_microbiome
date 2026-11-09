@@ -154,7 +154,7 @@ da_path_coinf_eth <- run_da_baseline(
 da_path_coinf_moz <- run_da_baseline(
   phy_list = list(pathway = physeq_path_pre_moz),
   reads_df = reads_per_sample,
-  main_var = "Coinfection_pre",
+  main_var = "ASC_epg_pre",
   tax_level_field = "Feature",
   prefix = "moz_coinfection",
   out_root = "MaasLin3/HUMAnN/baseline"
