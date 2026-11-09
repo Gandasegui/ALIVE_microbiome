@@ -178,6 +178,24 @@ da_ARG_country <- run_da_baseline(
   prefix = "country",
   out_root = "MaasLin3/ARG/baseline"
 )
+physeq_ARG_eth_rpkm_pre_f <- subset_samples(physeq_ARG_rpkm_pre_f, country == "Ethiopia")
+da_ARG_coinf_eth <- run_da_baseline(
+  phy_list = list(pathway = physeq_ARG_eth_rpkm_pre_f),
+  reads_df = reads_per_sample,
+  main_var = "Coinfection_pre",
+  tax_level_field = "Feature",
+  prefix = "eth_coinfection",
+  out_root = "MaasLin3/HUMAnN/baseline"
+)
+physeq_ARG_moz_rpkm_pre_f <- subset_samples(physeq_ARG_rpkm_pre_f, country == "Mozambique")
+da_path_coinf_moz <- run_da_baseline(
+  phy_list = list(pathway = physeq_ARG_moz_rpkm_pre_f),
+  reads_df = reads_per_sample,
+  main_var = "ASC_epg_pre",
+  tax_level_field = "Feature",
+  prefix = "moz_coinfection",
+  out_root = "MaasLin3/HUMAnN/baseline"
+)
 ```
 
 ## Part E — longitudinal (pre/post treatment) ARG differential abundance
