@@ -1,9 +1,25 @@
 # 1. Raw read quality control and host-read removal
 
-This stage takes paired-end fastq.gz files; see Supplementary
-Table 12 for the sample ID mapping to ENA accessions) and
+This stage takes paired-end fastq.gz files (already retrieved and renamed
+to `<sample_id>_1.fastq.gz` / `<sample_id>_2.fastq.gz`; see Supplementary
+Table 12 for the sample-to-raw-fastq mapping and ENA accessions) and
 produces host-depleted, quality-filtered reads ready for taxonomic,
 resistome, functional, and MAG analysis.
+
+Three tools are used in sequence: **fastp** (adapter trimming / quality
+filtering), **Clumpify** from BBTools (PCR/optical duplicate removal), and
+**Bowtie2** (human host-read removal against GRCh38/hg38). Read counts are
+tracked at every step, which is both reported in the manuscript
+(Supplementary Fig. 1A) and used to apply the pre-specified exclusion
+criterion of a minimum of 20 million host-depleted read pairs per sample.
+
+Software versions: fastp v0.23.4, BBTools v39.01, Bowtie2 v2.5.1.
+
+We deliberately do not include the step that retrieves raw fastq files
+from our institution's iRODS storage system here, since that step is
+specific to internal Sanger Institute infrastructure and is of no use to
+anyone reproducing this pipeline elsewhere. The raw reads are available
+directly from ENA under BioProject **PRJEB79832**.
 
 ## Step 1 — fastp
 
@@ -133,3 +149,4 @@ cat "${QC_DIR}/samples_excluded_low_depth.txt"
 `02_QC/read_counts.tsv` is a required input for every downstream analysis
 module in this repository (used both for QC reporting and for rescaling
 relative-abundance data to pseudo-counts ahead of ANCOM-BC2 testing).
+
